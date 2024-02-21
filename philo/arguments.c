@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:39:12 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/20 20:37:49 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:14:49 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 int	is_num(char **str)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (str[i])
@@ -44,7 +44,8 @@ int	is_letters(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
+		if ((str[i] >= 'a' && str[i] <= 'z') \
+				|| (str[i] >= 'A' && str[i] <= 'Z'))
 			return (1);
 		i++;
 	}
@@ -71,7 +72,7 @@ int	is_max_pos_neg(char *str)
 	return (0);
 }
 
-void	*filosofo()
+void	*filosofo(void)
 {
 	printf("Filosofo pensandoooo 🤔....\n");
 	sleep(2);
@@ -82,9 +83,9 @@ void	*filosofo()
 
 void	filosofo2(char *str)
 {
-	pthread_t hilo1;
-	pthread_t hilo2;
-	pthread_t hilo3;
+	pthread_t	hilo1;
+	pthread_t	hilo2;
+	pthread_t	hilo3;
 
 	printf("Cosas que hay: %s\n", str);
 	pthread_create(&hilo1, NULL, filosofo, NULL);
@@ -98,29 +99,22 @@ int	main(int argc, char **argv)
 	int	i;
 
 	i = 1;
+	if (argc < 5 || argc > 6)
+		return (printf("Falta o hay mas de los argumentos bb 🥶\n"));
 	while (argc > i)
 	{
 		if (is_letters(argv[i]))
-		{
-			printf("Error papi, no se admiten letras 🤥\n");
-			exit(1);
-		}
+			return (printf("Error papi, no se admiten letras 🤥\n"));
 		if (is_max_pos_neg(argv[i]))
-		{
-			printf("Error bebe, no puedes exceder de los numeros y tampoco negativos 😖\n");
 			exit(1);
-		}
 		i++;
 	}
 	i = 1;
-	if (argc == 5 || argc == 6)
+	while (argc > i)
 	{
-		while (argc > i)
-		{
-			if (is_num(&argv[i]))
-				filosofo2(argv[i]);
-			i++;
-		}
+		if (is_num(&argv[i]))
+			filosofo2(argv[i]);
+		i++;
 	}
 	return (0);
 }
