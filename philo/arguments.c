@@ -6,16 +6,11 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:39:12 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/21 16:14:49 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/23 16:08:10 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <sys/types.h>
+#include "philo.h"
 
 int	is_num(char **str)
 {
@@ -72,8 +67,9 @@ int	is_max_pos_neg(char *str)
 	return (0);
 }
 
-void	*filosofo(void)
+void	*filosofo(void *argv)
 {
+	(void)argv;
 	printf("Filosofo pensandoooo 🤔....\n");
 	sleep(2);
 	printf("Filosofo comiendo 🍜....\n");
