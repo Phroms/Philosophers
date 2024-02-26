@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:39:12 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/23 16:08:10 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/26 19:23:16 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	*filosofo(void *argv)
 	return (NULL);
 }
 
-void	filosofo2(char *str)
+void	filosofo2(int argc, char **argv)
 {
-	pthread_t	hilo1;
+	/*pthread_t	hilo1;
 	pthread_t	hilo2;
 	pthread_t	hilo3;
 
@@ -87,7 +87,34 @@ void	filosofo2(char *str)
 	pthread_create(&hilo1, NULL, filosofo, NULL);
 	pthread_create(&hilo2, NULL, filosofo, NULL);
 	pthread_create(&hilo3, NULL, filosofo, NULL);
-	pthread_join(hilo1, NULL);
+	pthread_join(hilo1, NULL);*/
+
+	t_reglas reglas;
+	
+	if (init_arguments(argc, argv, &reglas))
+	{
+		printf("Error en la inicializacion de los argumentos\n");
+		return;
+	}
+	if (init(&reglas))
+    {
+        printf("Error en la inicializacion de los filósofos\n");
+        return;
+    }
+	init_philo(&reglas);
+
+	    pthread_t hilos[reglas.num_filosofos];
+    int i;
+    for (i = 0; i < reglas.num_filosofos; ++i)
+    {
+        pthread_create(&hilos[i], NULL, filosofo, NULL);
+    }
+
+    // Esperar a que todos los hilos terminen
+    for (i = 0; i < reglas.num_filosofos; ++i)
+    {
+        pthread_join(hilos[i], NULL);
+    }
 }
 
 int	main(int argc, char **argv)
@@ -105,12 +132,6 @@ int	main(int argc, char **argv)
 			exit(1);
 		i++;
 	}
-	i = 1;
-	while (argc > i)
-	{
-		if (is_num(&argv[i]))
-			filosofo2(argv[i]);
-		i++;
-	}
+	filosofo2(argc, argv);
 	return (0);
 }
