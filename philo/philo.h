@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:19:27 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/26 19:26:16 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:40:51 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  # include <stdlib.h>
  # include <pthread.h>
  # include <sys/types.h>
+ # include <sys/time.h>
 /*****************************************************
  *						STRUCTS						 *
  *****************************************************/
@@ -76,5 +77,6 @@ int		init_arguments(int argc, char **argv, t_reglas *reglas);
  *****************************************************/	
 
 int		ft_atoi(const char *str);
+uint64_t	total_miliseg(void);
 
 #endif

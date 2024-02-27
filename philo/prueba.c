@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   prueba.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 12:42:37 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/27 15:42:12 by agrimald         ###   ########.fr       */
+/*   Created: 2024/02/27 13:49:28 by agrimald          #+#    #+#             */
+/*   Updated: 2024/02/27 15:40:48 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include <stdio.h>
+#include <stdint.h>
+#include <sys/time.h>
 
-int	ft_atoi(const char *str)
+int	main()
 {
-	int	i;
-	int	res;
+	struct timeval current_time;
 
-	i = 0;
-	res = 0;
-	while (str[i])
-	{
-		res = res * 10 + (str[i] - '0');
-		i++;
-	}
-	return (res);
-}
-
-uint64_t	total_miliseg(void)
-{
-	struct timeval	pass_time;
-
-	gettimeofdat(&pass_time, NULL);
-	return ((uint64_t)pass_time.tv_sec + (uint64_t)pass_time.tv_usec);
+	gettimeofday(&current_time, NULL);
+	return (printf("Tiempo transcurrido: %llu\n", (uint64_t)current_time.tv_sec * 1000 + (uint64_t)current_time.tv_usec));
 }

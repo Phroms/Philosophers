@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:04:30 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/26 18:33:58 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:42:16 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 	i = 0;
 	philosophers = rul->philo;
-	rul->init_time = crono();  "1, IMPORTANTE: HACER LA FUNCION CRONO";
+	rul->init_time = total_miliseg();  ✅"YA CREAMOS NUESTRO CRONO";
 	while (i < rul->num_filosofos)
 	{
 		pthread_create = (&(philosophers[i].id_of_philo), NULL, sim, (&rul->philo[i]))
