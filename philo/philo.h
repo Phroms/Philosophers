@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:19:27 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/27 15:40:51 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:09:47 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,33 @@ typedef struct	s_reglas
  *						ARGUMENTS					 *
  *****************************************************/	
 
-int		is_num(char **str);
-int		is_letters(char *str);
-int		is_max_pos_neg(char *str);
-void	*filosofo(void *argv);
-void	filosofo2(int argc, char **argv);
-int		main(int argc, char **argv);
+int			is_num(char **str);
+int			is_letters(char *str);
+int			is_max_pos_neg(char *str);
+void		*filosofo(void *argv);
+void		filosofo2(int argc, char **argv);
+int			main(int argc, char **argv);
 
 /*****************************************************
  *						INIT_PROGRAM				 *
  *****************************************************/	
 
-int		time_philo(t_reglas *rul);
-void	init_philo(t_reglas *reg);
-int		init(t_reglas *rules);
-int		init_arguments(int argc, char **argv, t_reglas *reglas);
+int			time_philo(t_reglas *rul);
+void		init_philo(t_reglas *reg);
+int			init(t_reglas *rules);
+int			init_arguments(int argc, char **argv, t_reglas *reglas);
+
+/*****************************************************
+ *						ARGUMENTS					 *
+ *****************************************************/	
+
+void		*rutinas(void);
 
 /*****************************************************
  *						UTILS						 *
  *****************************************************/	
 
-int		ft_atoi(const char *str);
+int			ft_atoi(const char *str);
 uint64_t	total_miliseg(void);
 
 #endif

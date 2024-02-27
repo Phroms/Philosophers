@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:04:30 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/27 15:42:16 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:09:43 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 	while (i < rul->num_filosofos)
 	{
 		pthread_create = (&(philosophers[i].id_of_philo), NULL, sim, (&rul->philo[i]))
-		"2. IMPORTANTE: ENTENDER BIEN LA FUNCION PTHREAD_CREATE, ESTO SOLO ES DE EJEMPLO";
+		"1. IMPORTANTE: ENTENDER BIEN LA FUNCION PTHREAD_CREATE, ESTO SOLO ES DE EJEMPLO";
 		i++;
 	}
+	"2. LA FUNCION SIN ES LA RUTINA QUE HARA LOS FILOSOFOS, TAMBIEN PUEDE COMENZAR CON LAS VECES QUE COMAN" 
 	return (0);
 }*/
 

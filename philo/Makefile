@@ -6,14 +6,14 @@
 #    By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/13 21:07:33 by agrimald          #+#    #+#              #
-#    Updated: 2024/02/27 13:19:06 by agrimald         ###   ########.fr        #
+#    Updated: 2024/02/27 19:14:46 by agrimald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philosophers
 CFLAGS = -Wall -Werror -Wextra #-g #-fsanitize=address
 
-SRC = arguments.c init_program.c utils.c
+SRC = arguments.c init_program.c utils.c rutinas.c
 OBJECTS = $(SRC:.c=.o)
 
 all: $(NAME)
