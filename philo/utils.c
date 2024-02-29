@@ -34,3 +34,10 @@ uint64_t	total_miliseg(void)
 	gettimeofdat(&pass_time, NULL);
 	return ((uint64_t)pass_time.tv_sec + (uint64_t)pass_time.tv_usec);
 }
+
+int	ft_usleep(uint64_t waiting)
+{
+	waiting += total_miliseg();
+	while (total_miliseg() <= waiting)
+		usleep(100);
+}
