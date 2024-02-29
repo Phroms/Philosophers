@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:19:27 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/27 20:09:47 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:24:41 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
  # include <pthread.h>
  # include <sys/types.h>
  # include <sys/time.h>
+
+ #define TENEDOR "tiene el tenedor"
+ #define COMER "esta comindo"
+ #define DORMIR "esta durmiendo"
+ #define PENSAR "esta pensando"
+ #define MUERTE "esta muerto"
+
 /*****************************************************
  *						STRUCTS						 *
  *****************************************************/
@@ -27,7 +34,7 @@
 typedef struct	s_philo
 {
 	int				id;
-	int 			veces_comidas;
+	int 			num_veces_comidas;
 	uint64_t		tiempo_muerte;
 	pthread_mutex_t	*der_tenedor;
 	pthread_mutex_t	izq_tenedor;
@@ -46,11 +53,25 @@ typedef struct	s_reglas
 	pthread_mutex_t	m_inicio;
 	pthread_mutex_t	m_muerte;
 	pthread_mutex_t	m_impresion;
-	int				num_ciclos;
+	int				maximo_de_comidas;
 	int				count_eats;
 	int				count_deads;
 	t_philo			philo[250];
 }t_reglas;
+
+/*****************************************************
+ *						COLORS						 *
+ *****************************************************/	
+
+ #define FINAL		"\033[0m"	/*Final*/
+ #define BLACK		"\033[30m"	/*Negro*/
+ #define RED		"\033[31m"	/*Rojo*/
+ #define GREEN		"\033[32m"	/*Verde*/
+ #define YELLOW		"\033[33m"	/*Amarillo*/
+ #define BLUE		"\033[34m"	/*Azul*/
+ #define MAGENTA	"\033[35m"	/*Morado*/
+ #define CYAN		"\033[36m"	/*Celeste*/
+ #define WHITE		"\033[37m"	/*Blanco*/
 
 /*****************************************************
  *						ARGUMENTS					 *
@@ -59,8 +80,8 @@ typedef struct	s_reglas
 int			is_num(char **str);
 int			is_letters(char *str);
 int			is_max_pos_neg(char *str);
-void		*filosofo(void *argv);
-void		filosofo2(int argc, char **argv);
+//void		*filosofo(void *argv);
+//void		filosofo2(int argc, char **argv);
 int			main(int argc, char **argv);
 
 /*****************************************************
@@ -73,16 +94,19 @@ int			init(t_reglas *rules);
 int			init_arguments(int argc, char **argv, t_reglas *reglas);
 
 /*****************************************************
- *						ARGUMENTS					 *
+ *						RUTINAS						 *
  *****************************************************/	
 
-void		*rutinas(void);
+void		life(t_philo *ph);
+void		*rutinas(void *void_philo);
 
 /*****************************************************
  *						UTILS						 *
  *****************************************************/	
 
+void		print_msg(char *color, t_philo *philo, char *s, int dead);
 int			ft_atoi(const char *str);
 uint64_t	total_miliseg(void);
+void		ft_usleep(uint64_t waiting);
 
 #endif

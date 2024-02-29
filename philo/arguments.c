@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:39:12 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/27 16:16:02 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:53:07 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	*filosofo(void *argv)
 	return (NULL);
 }
 
-void	filosofo2(int argc, char **argv)
+/*void	filosofo2(int argc, char **argv)
 {
-	/*pthread_t	hilo1;
+	pthread_t	hilo1;
 	pthread_t	hilo2;
 	pthread_t	hilo3;
 
@@ -87,7 +87,7 @@ void	filosofo2(int argc, char **argv)
 	pthread_create(&hilo1, NULL, filosofo, NULL);
 	pthread_create(&hilo2, NULL, filosofo, NULL);
 	pthread_create(&hilo3, NULL, filosofo, NULL);
-	pthread_join(hilo1, NULL);*/
+	pthread_join(hilo1, NULL);
 
 	t_reglas reglas;
 	
@@ -115,11 +115,12 @@ void	filosofo2(int argc, char **argv)
     {
         pthread_join(hilos[i], NULL);
     }
-}
+}*/
 
 int	main(int argc, char **argv)
 {
 	int	i;
+	t_reglas	reglas;
 
 	i = 1;
 	if (argc < 5 || argc > 6)
@@ -132,6 +133,17 @@ int	main(int argc, char **argv)
 			exit(1);
 		i++;
 	}
-	filosofo2(argc, argv);
+	if (init_arguments(argc, argv, &reglas))
+	{
+		printf("Error en la inicializacion de los argumentos\n");
+		return (1);
+	}
+	if (init(&reglas))
+	{
+		printf("Error en la inicializacion de los filosofos\n");
+		return (1);
+	}
+	init_philo(&reglas);
+	time_philo(&reglas);
 	return (0);
 }

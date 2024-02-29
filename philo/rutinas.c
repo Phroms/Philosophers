@@ -6,29 +6,55 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:12:39 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/29 15:10:54 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:26:14 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	life(t_philo *ph)
+{
+	t_reglas	*reglas;
+
+	reglas = ph->reglas;
+	pthread_mutex_lock(&(ph->izq_tenedor));
+	print_msg(GREEN, ph, TENEDOR, 0);
+	if (reglas->num_filosofos == 1)
+	{
+		ft_usleep(reglas->tiempo_para_morir);
+		pthread_mutex_unlock(&(ph->izq_tenedor));
+		return;
+	}
+	pthread_mutex_lock(ph->der_tenedor);
+	print_msg(CYAN, ph, TENEDOR, 0);
+	pthread_mutex_lock(&(ph->m_check_comidas));
+	ph->tiempo_muerte = reglas->tiempo_para_morir + (total_miliseg() - reglas->init_time);
+	pthread_mutex_unlock(&(ph->izq_tenedor));
+	pthread_mutex_unlock(ph->der_tenedor);
+	print_msg(MAGENTA, ph, DORMIR, 0);
+	ft_usleep(reglas->tiempo_para_dormir);
+	print_msg(YELLOW, ph, PENSAR, 0);
+}
+
 void	*rutinas(void *void_philo)
 {
 	int			finish;
-	t_reglas	*rules;
+	t_reglas	*reglas;
 	t_philo		*philo;
 
-	philo = (t_philo)void_philo;
-	rules = philo->rules;
+	philo = (t_philo *)void_philo;
+	reglas = philo->reglas;
 	finish = 0;
-	if (philo % 2 == 0)
+	if (philo->id % 2 == 0)
 	{
 		ft_usleep(reglas->tiempo_para_comer);
 	}
-	"1. HACER UN BUCLE DONDE VAS A COMPARAR SI LOS FILOFOS NO HAN TERMINADO DE COMER Y VAS A COMPARAR LAS VECES DE COMIDA CON LAS MAXIMA DE VECES QUE PUEDE COMER UN FILO";
-	"2. DENTRO DE ESE BUCLE HARAS UNA FUNCION DONDE HARAS UNA LOGICA DONDE LOS FILOSOFOS "VIVEN"QUE TOMARA COMO ARGUMENTOS TUS PHILOS";
-	"3. BLOQUEARAS LA REGLA DE QUE LOS FILOSOFOS PUEDAN MORIR";
-	"4. DARAS EL VALOR DE LA REGLA DE MORIR A TU VARIABLE FINISH";
-	"5. DESBLOQUEARAS LA REGLA DE QUE LOS FILOSOFOS PUEDAN MORIR, PARA QUE ASI OTROS HILOS PUEDAN ENTRAR A ESA REGLA Y MORIR";
-	"6. RETORNAR NULL"
+	while (finish == 0 && (philo->num_veces_comidas != reglas->maximo_de_comidas))
+	{
+		life(philo);
+		pthread_mutex_lock(&(reglas->m_muerte));
+		finish = reglas->count_deads;
+		pthread_mutex_unlock(&(reglas->m_muerte));
+	}
+	return (NULL);
 }
