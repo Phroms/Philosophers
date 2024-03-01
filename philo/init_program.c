@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:04:30 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/29 19:56:51 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:31:54 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ void	init_philo(t_reglas *reglas)
 
 int	init(t_reglas *rules)
 {
-	pthread_mutex_init(&(rules->m_inicio), NULL);
-	pthread_mutex_init(&(rules->m_muerte), NULL);
-	pthread_mutex_init(&(rules->m_impresion), NULL);
+	if (pthread_mutex_init(&(rules->m_inicio), NULL))
+		return (exit_philo("INIT_MUTEX", "Mutex start failed", THREADS));
+	if (pthread_mutex_init(&(rules->m_muerte), NULL))
+		return (exit_philo("INIT_MUTEX", "Mutex print failed", THREADS));
+	if (pthread_mutex_init(&(rules->m_impresion), NULL))
+		return (exit_philo("INIT_MUTEX", "Mutex death failed", THREADS));
 	return (0);
 }
 
@@ -78,4 +81,24 @@ int	init_arguments(int argc, char **argv, t_reglas *reglas)
 	init_philo(reglas);
 	time_philo(reglas);
 	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_reglas	reglas;
+	int			i;
+
+	if (process_arguments(argc, argv))
+		return (1);
+	if (init_arguments(argc, argv, &reglas))
+		return (2);
+	pthread_mutex_unlock(&(reglas.m_muerte));
+	check_philo(&reglas);
+	i = 0;
+	while (i < reglas.num_filosofos)
+	{
+		pthread_join(reglas.philo[i].id_of_philo, NULL);
+		i++;
+	}
+	return (philo_destroy(&reglas));
 }

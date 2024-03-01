@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:39:12 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/29 19:53:07 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:05:34 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,57 +67,24 @@ int	is_max_pos_neg(char *str)
 	return (0);
 }
 
-void	*filosofo(void *argv)
+int	process_arguments(int argc, char **argv)
 {
-	(void)argv;
-	printf("Filosofo pensandoooo 🤔....\n");
-	sleep(2);
-	printf("Filosofo comiendo 🍜....\n");
-	printf("Filosofo durmiendo 😴....\n");
-	return (NULL);
-}
+	int	i;
 
-/*void	filosofo2(int argc, char **argv)
-{
-	pthread_t	hilo1;
-	pthread_t	hilo2;
-	pthread_t	hilo3;
-
-	printf("Cosas que hay: %s\n", str);
-	pthread_create(&hilo1, NULL, filosofo, NULL);
-	pthread_create(&hilo2, NULL, filosofo, NULL);
-	pthread_create(&hilo3, NULL, filosofo, NULL);
-	pthread_join(hilo1, NULL);
-
-	t_reglas reglas;
-	
-	if (init_arguments(argc, argv, &reglas))
+	i = 1;
+	if (argc < 5 || argc > 6)
+		return (printf("Falta o hay mas de los argumentos bb 🥶\n"));
+	while (argc > i)
 	{
-		printf("Error en la inicializacion de los argumentos\n");
-		return;
+		if (is_letters(argv[i]))
+			return (printf("Error papi, no se admiten letras 🤥\n"));
+		if (is_max_pos_neg(argv[i]))
+			exit(1);
+		i++;
 	}
-	if (init(&reglas))
-    {
-        printf("Error en la inicializacion de los filósofos\n");
-        return;
-    }
-	init_philo(&reglas);
-
-	    pthread_t hilos[reglas.num_filosofos];
-    int i;
-    for (i = 0; i < reglas.num_filosofos; ++i)
-    {
-        pthread_create(&hilos[i], NULL, filosofo, NULL);
-    }
-
-    // Esperar a que todos los hilos terminen
-    for (i = 0; i < reglas.num_filosofos; ++i)
-    {
-        pthread_join(hilos[i], NULL);
-    }
-}*/
-
-int	main(int argc, char **argv)
+	return (0);
+}
+/*int	main(int argc, char **argv)
 {
 	int	i;
 	t_reglas	reglas;
@@ -146,4 +113,4 @@ int	main(int argc, char **argv)
 	init_philo(&reglas);
 	time_philo(&reglas);
 	return (0);
-}
+}*/

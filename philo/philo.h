@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:19:27 by agrimald          #+#    #+#             */
-/*   Updated: 2024/02/29 20:24:41 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:40:12 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,19 @@ typedef struct	s_reglas
 	int				maximo_de_comidas;
 	int				count_eats;
 	int				count_deads;
+	int				todos_comieron;
 	t_philo			philo[250];
 }t_reglas;
+
+typedef enum errors
+{
+	BAD_INPUT = 1,
+	MALLOC = 2,
+	MUTEX = 3,
+	THREADS = 4,
+	TIME = 5,	
+	
+} error_code;
 
 /*****************************************************
  *						COLORS						 *
@@ -66,12 +77,12 @@ typedef struct	s_reglas
  #define FINAL		"\033[0m"	/*Final*/
  #define BLACK		"\033[30m"	/*Negro*/
  #define RED		"\033[31m"	/*Rojo*/
- #define GREEN		"\033[32m"	/*Verde*/
+ #define GREEN		"\033[32m"	/*Verde*/  //este verde esa feo
  #define YELLOW		"\033[33m"	/*Amarillo*/
  #define BLUE		"\033[34m"	/*Azul*/
  #define MAGENTA	"\033[35m"	/*Morado*/
  #define CYAN		"\033[36m"	/*Celeste*/
- #define WHITE		"\033[37m"	/*Blanco*/
+ #define WHITE		"\033[97m"	/*Blanco*/
 
 /*****************************************************
  *						ARGUMENTS					 *
@@ -82,7 +93,7 @@ int			is_letters(char *str);
 int			is_max_pos_neg(char *str);
 //void		*filosofo(void *argv);
 //void		filosofo2(int argc, char **argv);
-int			main(int argc, char **argv);
+int			process_arguments(int argc, char **argv);
 
 /*****************************************************
  *						INIT_PROGRAM				 *
@@ -97,8 +108,17 @@ int			init_arguments(int argc, char **argv, t_reglas *reglas);
  *						RUTINAS						 *
  *****************************************************/	
 
+void		philo_dead(t_reglas *reglas, int i, uint64_t time);
+void		check_philo(t_reglas *reglas);
 void		life(t_philo *ph);
 void		*rutinas(void *void_philo);
+
+/*****************************************************
+ *						EXIT						 *
+ *****************************************************/	
+
+int			exit_philo(char *input, char *err_msg, error_code err_code);
+int			philo_destroy(t_reglas *data);
 
 /*****************************************************
  *						UTILS						 *
