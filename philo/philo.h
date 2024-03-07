@@ -3,47 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
+/*   By: agrimald <agrimald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:19:27 by agrimald          #+#    #+#             */
-/*   Updated: 2024/03/01 21:40:12 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:22:18 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
- #define PHILO_H
+# define PHILO_H
 
- # include <unistd.h>
- # include <stdio.h>
- # include <string.h>
- # include <stdlib.h>
- # include <pthread.h>
- # include <sys/types.h>
- # include <sys/time.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <sys/types.h>
+# include <sys/time.h>
 
- #define TENEDOR "tiene el tenedor"
- #define COMER "esta comindo"
- #define DORMIR "esta durmiendo"
- #define PENSAR "esta pensando"
- #define MUERTE "esta muerto"
+# define TENEDOR "tiene el tenedor"
+# define COMER "esta comindo"
+# define DORMIR "esta durmiendo"
+# define PENSAR "esta pensando"
+# define MUERTE "esta muerto"
+
+/*****************************************************
+ *						COLORS						 *
+ *****************************************************/	
+
+# define FINAL		"\033[0m"	/*Final*/
+# define BLACK		"\033[30m"	/*Negro*/
+# define RED		"\033[31m"	/*Rojo*/
+# define GREEN		"\033[32m"	/*Verde*/  //este verde esa feo
+# define YELLOW		"\033[33m"	/*Amarillo*/
+# define BLUE		"\033[34m"	/*Azul*/
+# define MAGENTA	"\033[35m"	/*Morado*/
+# define CYAN		"\033[36m"	/*Celeste*/
+# define WHITE		"\033[97m"	/*Blanco*/
 
 /*****************************************************
  *						STRUCTS						 *
  *****************************************************/
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
-	int 			num_veces_comidas;
+	int				num_veces_comidas;
 	uint64_t		tiempo_muerte;
 	pthread_mutex_t	*der_tenedor;
 	pthread_mutex_t	izq_tenedor;
 	pthread_mutex_t	m_check_comidas;
 	struct s_reglas	*reglas;
 	pthread_t		id_of_philo;
-}t_philo;
+}	t_philo;
 
-typedef struct	s_reglas
+typedef struct s_reglas
 {
 	int				num_filosofos;
 	uint64_t		tiempo_para_morir;
@@ -58,31 +72,16 @@ typedef struct	s_reglas
 	int				count_deads;
 	int				todos_comieron;
 	t_philo			philo[250];
-}t_reglas;
+}	t_reglas;
 
-typedef enum errors
+typedef enum s_errors
 {
 	BAD_INPUT = 1,
 	MALLOC = 2,
 	MUTEX = 3,
 	THREADS = 4,
-	TIME = 5,	
-	
-} error_code;
-
-/*****************************************************
- *						COLORS						 *
- *****************************************************/	
-
- #define FINAL		"\033[0m"	/*Final*/
- #define BLACK		"\033[30m"	/*Negro*/
- #define RED		"\033[31m"	/*Rojo*/
- #define GREEN		"\033[32m"	/*Verde*/  //este verde esa feo
- #define YELLOW		"\033[33m"	/*Amarillo*/
- #define BLUE		"\033[34m"	/*Azul*/
- #define MAGENTA	"\033[35m"	/*Morado*/
- #define CYAN		"\033[36m"	/*Celeste*/
- #define WHITE		"\033[97m"	/*Blanco*/
+	TIME = 5,		
+}	t_error_code;
 
 /*****************************************************
  *						ARGUMENTS					 *
@@ -91,8 +90,6 @@ typedef enum errors
 int			is_num(char **str);
 int			is_letters(char *str);
 int			is_max_pos_neg(char *str);
-//void		*filosofo(void *argv);
-//void		filosofo2(int argc, char **argv);
 int			process_arguments(int argc, char **argv);
 
 /*****************************************************
@@ -117,7 +114,7 @@ void		*rutinas(void *void_philo);
  *						EXIT						 *
  *****************************************************/	
 
-int			exit_philo(char *input, char *err_msg, error_code err_code);
+int			exit_philo(char *input, char *err_msg, t_error_code err_code);
 int			philo_destroy(t_reglas *data);
 
 /*****************************************************

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
+/*   By: agrimald <agrimald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:39:12 by agrimald          #+#    #+#             */
-/*   Updated: 2024/03/01 21:05:34 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:58:31 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,33 +84,3 @@ int	process_arguments(int argc, char **argv)
 	}
 	return (0);
 }
-/*int	main(int argc, char **argv)
-{
-	int	i;
-	t_reglas	reglas;
-
-	i = 1;
-	if (argc < 5 || argc > 6)
-		return (printf("Falta o hay mas de los argumentos bb 🥶\n"));
-	while (argc > i)
-	{
-		if (is_letters(argv[i]))
-			return (printf("Error papi, no se admiten letras 🤥\n"));
-		if (is_max_pos_neg(argv[i]))
-			exit(1);
-		i++;
-	}
-	if (init_arguments(argc, argv, &reglas))
-	{
-		printf("Error en la inicializacion de los argumentos\n");
-		return (1);
-	}
-	if (init(&reglas))
-	{
-		printf("Error en la inicializacion de los filosofos\n");
-		return (1);
-	}
-	init_philo(&reglas);
-	time_philo(&reglas);
-	return (0);
-}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_program.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
+/*   By: agrimald <agrimald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:04:30 by agrimald          #+#    #+#             */
-/*   Updated: 2024/03/01 21:31:54 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:59:12 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	time_philo(t_reglas	*rul)
 {
+	int		i;
 	t_philo	*philosophers;
-	int			i;
 
 	i = 0;
 	philosophers = rul->philo;
@@ -75,7 +75,7 @@ int	init_arguments(int argc, char **argv, t_reglas *reglas)
 	if (reglas->num_filosofos == 0)
 		return (printf("Error bebe: No hay filosofos 🤭\n"));
 	else if (reglas->num_filosofos > 250)
-		return (printf("Que fue mano: exicediste el numero de threads 😐\n"));
+		return (printf("Que fue mano: excediste el numero de threads 😐\n"));
 	if (init(reglas))
 		return (1);
 	init_philo(reglas);

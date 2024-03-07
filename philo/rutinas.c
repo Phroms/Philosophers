@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rutinas.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
+/*   By: agrimald <agrimald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:12:39 by agrimald          #+#    #+#             */
-/*   Updated: 2024/03/01 20:00:37 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:45:38 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ void	life(t_philo *ph)
 	{
 		ft_usleep(reglas->tiempo_para_morir);
 		pthread_mutex_unlock(&(ph->izq_tenedor));
-		return;
+		return ;
 	}
 	pthread_mutex_lock(ph->der_tenedor);
 	print_msg(CYAN, ph, TENEDOR, 0);
 	pthread_mutex_lock(&(ph->m_check_comidas));
 	ph->tiempo_muerte = reglas->tiempo_para_morir + (total_miliseg() - reglas->init_time);
+	ph->num_veces_comidas++;
+	print_msg(BLUE, ph, COMER, 0);
+	pthread_mutex_unlock(&(ph->m_check_comidas));
 	pthread_mutex_unlock(&(ph->izq_tenedor));
 	pthread_mutex_unlock(ph->der_tenedor);
 	print_msg(MAGENTA, ph, DORMIR, 0);
@@ -86,9 +89,7 @@ void	*rutinas(void *void_philo)
 	reglas = philo->reglas;
 	finish = 0;
 	if (philo->id % 2 == 0)
-	{
 		ft_usleep(reglas->tiempo_para_comer);
-	}
 	while (finish == 0 && (philo->num_veces_comidas != reglas->maximo_de_comidas))
 	{
 		life(philo);
