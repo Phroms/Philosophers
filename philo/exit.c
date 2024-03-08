@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:16:11 by agrimald          #+#    #+#             */
-/*   Updated: 2024/03/07 18:35:08 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:32:13 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	exit_philo(char *input, char *err_msg, t_error_code err_code)
 	return (err_code);
 }
 
-int	philo_destroy(t_reglas *data)
+int	philo_destroy(t_rules *data)
 {
-	pthread_mutex_destroy(&(data->m_impresion));
-	pthread_mutex_destroy(&(data->m_muerte));
-	pthread_mutex_destroy(&(data->m_inicio));
+	pthread_mutex_destroy(&(data->m_print));
+	pthread_mutex_destroy(&(data->m_dead));
+	pthread_mutex_destroy(&(data->m_init));
 	return (0);
 }

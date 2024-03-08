@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:39:12 by agrimald          #+#    #+#             */
-/*   Updated: 2024/03/07 15:58:31 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:01:54 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	is_max_pos_neg(char *str)
 
 	num_pos = "2147483647";
 	num_neg = "-2147483648";
-	if (strcmp(str, num_pos) == 0 || strcmp(str, num_neg) == 0)
+	if (ft_strcmp(str, num_pos) == 0 || ft_strcmp(str, num_neg) == 0)
 	{
 		printf("Error bb ☹️ \n");
 		exit(1);

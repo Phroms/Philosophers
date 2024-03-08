@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:19:27 by agrimald          #+#    #+#             */
-/*   Updated: 2024/03/07 15:22:18 by agrimald         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:06:24 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <sys/types.h>
 # include <sys/time.h>
 
-# define TENEDOR "tiene el tenedor"
-# define COMER "esta comindo"
-# define DORMIR "esta durmiendo"
-# define PENSAR "esta pensando"
-# define MUERTE "esta muerto"
+# define FORK "Has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DIED "died"
 
 /*****************************************************
  *						COLORS						 *
@@ -48,31 +48,31 @@
 typedef struct s_philo
 {
 	int				id;
-	int				num_veces_comidas;
-	uint64_t		tiempo_muerte;
-	pthread_mutex_t	*der_tenedor;
-	pthread_mutex_t	izq_tenedor;
-	pthread_mutex_t	m_check_comidas;
-	struct s_reglas	*reglas;
-	pthread_t		id_of_philo;
+	int				num_meals;
+	uint64_t		time_dead;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	l_fork;
+	pthread_mutex_t	m_check_meals;
+	struct s_rules	*rules;
+	pthread_t		id_philo;
 }	t_philo;
 
-typedef struct s_reglas
+typedef struct s_rules
 {
-	int				num_filosofos;
-	uint64_t		tiempo_para_morir;
-	uint64_t		tiempo_para_comer;
-	uint64_t		tiempo_para_dormir;
+	int				num_philo;
+	uint64_t		time_of_dead;
+	uint64_t		time_of_eat;
+	uint64_t		time_of_sleep;
 	uint64_t		init_time;
-	pthread_mutex_t	m_inicio;
-	pthread_mutex_t	m_muerte;
-	pthread_mutex_t	m_impresion;
-	int				maximo_de_comidas;
+	pthread_mutex_t	m_init;
+	pthread_mutex_t	m_dead;
+	pthread_mutex_t	m_print;
+	int				max_meals;
 	int				count_eats;
 	int				count_deads;
-	int				todos_comieron;
+	int				all_eat;
 	t_philo			philo[250];
-}	t_reglas;
+}	t_rules;
 
 typedef enum s_errors
 {
@@ -96,26 +96,26 @@ int			process_arguments(int argc, char **argv);
  *						INIT_PROGRAM				 *
  *****************************************************/	
 
-int			time_philo(t_reglas *rul);
-void		init_philo(t_reglas *reg);
-int			init(t_reglas *rules);
-int			init_arguments(int argc, char **argv, t_reglas *reglas);
+int			time_philo(t_rules *rul);
+void		init_philo(t_rules *reg);
+int			init(t_rules *rules);
+int			init_arguments(int argc, char **argv, t_rules *rules);
 
 /*****************************************************
- *						RUTINAS						 *
+ *						rutin						 *
  *****************************************************/	
 
-void		philo_dead(t_reglas *reglas, int i, uint64_t time);
-void		check_philo(t_reglas *reglas);
+void		philo_dead(t_rules *rules, int i, uint64_t time);
+void		check_philo(t_rules *rules);
 void		life(t_philo *ph);
-void		*rutinas(void *void_philo);
+void		*rutin(void *void_philo);
 
 /*****************************************************
  *						EXIT						 *
  *****************************************************/	
 
 int			exit_philo(char *input, char *err_msg, t_error_code err_code);
-int			philo_destroy(t_reglas *data);
+int			philo_destroy(t_rules *data);
 
 /*****************************************************
  *						UTILS						 *
@@ -123,6 +123,7 @@ int			philo_destroy(t_reglas *data);
 
 void		print_msg(char *color, t_philo *philo, char *s, int dead);
 int			ft_atoi(const char *str);
+int			ft_strcmp(char *s1, char *s2);
 uint64_t	total_miliseg(void);
 void		ft_usleep(uint64_t waiting);
 
